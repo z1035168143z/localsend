@@ -248,6 +248,7 @@ class ReceiveController {
           destinationDirectory: destinationDir,
           cacheDirectory: cacheDir,
           saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
+          saveAsLivePhoto:  checkPlatformWithGallery() && settings.saveAsLivePhoto && dto.files.values.every((f) => !f.fileName.contains('/')),
           createdDirectories: {},
           responseHandler: streamController,
         ),
@@ -724,6 +725,16 @@ class ReceiveController {
       (oldState) => oldState?.copyWith(
         session: oldState.session?.copyWith(
           saveToGallery: saveToGallery,
+        ),
+      ),
+    );
+  }
+
+  void setSessionSaveAsLivePhoto(bool saveAsLivePhoto) {
+    server.setState(
+      (oldState) => oldState?.copyWith(
+        session: oldState.session?.copyWith(
+          saveAsLivePhoto: saveAsLivePhoto,
         ),
       ),
     );
